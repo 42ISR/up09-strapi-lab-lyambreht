@@ -443,6 +443,261 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
+  collectionName: 'bookings';
+  info: {
+    displayName: 'Booking';
+    pluralName: 'bookings';
+    singularName: 'booking';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bookedAt: Schema.Attribute.DateTime;
+    bookingStatus: Schema.Attribute.Enumeration<
+      ['confirmed', 'cancelled', 'attended']
+    > &
+      Schema.Attribute.DefaultTo<'confirmed'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    fitness_class: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::fitness-class.fitness-class'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::booking.booking'
+    > &
+      Schema.Attribute.Private;
+    member: Schema.Attribute.Relation<'manyToOne', 'api::member.member'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCertificationCertification
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'certifications';
+  info: {
+    displayName: 'Certification';
+    pluralName: 'certifications';
+    singularName: 'certification';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    document: Schema.Attribute.Media<'images' | 'files'>;
+    issuedAt: Schema.Attribute.Date;
+    issuedBy: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::certification.certification'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    trainer: Schema.Attribute.Relation<'manyToOne', 'api::trainer.trainer'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFitnessClassFitnessClass
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'fitness_classes';
+  info: {
+    displayName: 'FitnessClass';
+    pluralName: 'fitness-classes';
+    singularName: 'fitness-class';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bookings: Schema.Attribute.Relation<'oneToMany', 'api::booking.booking'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Blocks;
+    difficulty: Schema.Attribute.Enumeration<['easy', 'moderate', 'hard']>;
+    duration: Schema.Attribute.Integer;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fitness-class.fitness-class'
+    > &
+      Schema.Attribute.Private;
+    maxCapacity: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    room: Schema.Attribute.String;
+    scheduledAt: Schema.Attribute.DateTime;
+    tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
+    title: Schema.Attribute.String;
+    trainer: Schema.Attribute.Relation<'manyToOne', 'api::trainer.trainer'>;
+    type: Schema.Attribute.Enumeration<
+      ['yoga', 'cardio', 'strength', 'pilates', 'hiit']
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMemberMember extends Struct.CollectionTypeSchema {
+  collectionName: 'members';
+  info: {
+    displayName: 'Member';
+    pluralName: 'members';
+    singularName: 'member';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    birthDate: Schema.Attribute.Date;
+    bookings: Schema.Attribute.Relation<'oneToMany', 'api::booking.booking'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    firstName: Schema.Attribute.String & Schema.Attribute.Required;
+    lastName: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::member.member'
+    > &
+      Schema.Attribute.Private;
+    membershipType: Schema.Attribute.Enumeration<['basic', 'premium', 'vip']>;
+    phone: Schema.Attribute.String;
+    photo: Schema.Attribute.Media<'images'>;
+    publishedAt: Schema.Attribute.DateTime;
+    subscriptions: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::subscription.subscription'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSubscriptionSubscription
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'subscriptions';
+  info: {
+    displayName: 'Subscription';
+    pluralName: 'subscriptions';
+    singularName: 'subscription';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    endDate: Schema.Attribute.Date;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::subscription.subscription'
+    > &
+      Schema.Attribute.Private;
+    member: Schema.Attribute.Relation<'manyToOne', 'api::member.member'>;
+    plan: Schema.Attribute.Enumeration<['monthly', 'quarterly', 'annual']>;
+    price: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    startDate: Schema.Attribute.Date;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTagTag extends Struct.CollectionTypeSchema {
+  collectionName: 'tags';
+  info: {
+    displayName: 'Tag';
+    pluralName: 'tags';
+    singularName: 'tag';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    color: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    fitness_classes: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::fitness-class.fitness-class'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTrainerTrainer extends Struct.CollectionTypeSchema {
+  collectionName: 'trainers';
+  info: {
+    displayName: 'Trainer';
+    pluralName: 'trainers';
+    singularName: 'trainer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bio: Schema.Attribute.Blocks;
+    certifications: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::certification.certification'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    firstName: Schema.Attribute.String & Schema.Attribute.Required;
+    fitness_classes: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fitness-class.fitness-class'
+    >;
+    lastName: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::trainer.trainer'
+    > &
+      Schema.Attribute.Private;
+    photo: Schema.Attribute.Media<'images'>;
+    publishedAt: Schema.Attribute.DateTime;
+    specializations: Schema.Attribute.JSON;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -954,6 +1209,13 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::booking.booking': ApiBookingBooking;
+      'api::certification.certification': ApiCertificationCertification;
+      'api::fitness-class.fitness-class': ApiFitnessClassFitnessClass;
+      'api::member.member': ApiMemberMember;
+      'api::subscription.subscription': ApiSubscriptionSubscription;
+      'api::tag.tag': ApiTagTag;
+      'api::trainer.trainer': ApiTrainerTrainer;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -1,0 +1,25 @@
+info:
+  name: create certifications
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/certifications"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Новый тег",
+        "color": "#123456"
+      }
+  auth:
+    type: bearer
+    token: "{{token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

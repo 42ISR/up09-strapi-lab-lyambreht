@@ -1,0 +1,15 @@
+info:
+  name: "certifications by ID "
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{baseUrl}}/api/certifications/yst4gl63te2goo7ql5nn79h0"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
