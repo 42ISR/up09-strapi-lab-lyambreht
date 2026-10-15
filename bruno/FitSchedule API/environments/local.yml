@@ -1,0 +1,8 @@
+name: local
+variables:
+  - name: baseUrl
+    value: https://expert-tribble-r4p77wpwxw9g259g5-1337.app.github.dev
+    description: ""
+  - name: token
+    value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyIiwic2Vzc2lvbklkIjoiZmEyOGM1NzExYzE4ZDQxYTg2ZWQ4MmFhODg5YmRiNjkiLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzkyMDY1NDE5LCJleHAiOjE3OTIwNjYwMTl9.R_wBQrvJ71Y1iiVei8Qb14CyftwwJX9o-DpwNdNGVkY
+    description: ""

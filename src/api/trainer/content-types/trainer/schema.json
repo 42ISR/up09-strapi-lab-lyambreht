@@ -32,10 +32,17 @@
     "specializations": {
       "type": "json"
     },
-    "fitness_class": {
+    "fitness_classes": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::fitness-class.fitness-class"
+      "relation": "oneToMany",
+      "target": "api::fitness-class.fitness-class",
+      "mappedBy": "trainer"
+    },
+    "certifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::certification.certification",
+      "mappedBy": "trainer"
     }
   }
 }

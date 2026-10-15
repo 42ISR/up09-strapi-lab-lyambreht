@@ -1,0 +1,23 @@
+info:
+  name: auth/login
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/auth/local"
+  body:
+    type: json
+    data: |-
+      {
+        "identifier": "admin@fit.com",
+        "password": "Admin123!"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

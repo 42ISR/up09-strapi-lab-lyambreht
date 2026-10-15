@@ -1,0 +1,24 @@
+info:
+  name: update certifications
+  type: http
+  seq: 6
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/api/certifications/yst4gl63te2goo7ql5nn79h0"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Обновлённый тег"
+      }
+  auth:
+    type: bearer
+    token: "{{token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

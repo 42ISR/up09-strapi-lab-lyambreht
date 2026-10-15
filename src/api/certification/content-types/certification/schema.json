@@ -29,6 +29,12 @@
         "images",
         "files"
       ]
+    },
+    "trainer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::trainer.trainer",
+      "inversedBy": "certifications"
     }
   }
 }

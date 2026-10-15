@@ -18,6 +18,12 @@
     },
     "color": {
       "type": "string"
+    },
+    "fitness_classes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::fitness-class.fitness-class",
+      "mappedBy": "tags"
     }
   }
 }
